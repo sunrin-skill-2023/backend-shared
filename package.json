@@ -1,0 +1,25 @@
+{
+  "name": "backend-shared",
+  "version": "1.0.0",
+  "author": "plebea",
+  "license": "MIT",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "rimraf ./lib && npm run build:proto && npm run build:tsc && npm run build:copy",
+    "build:tsc": "tsc -b",
+    "build:copy": "copyfiles --up 1 src/protocols/**/* lib",
+    "build:proto": "protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto.cmd --ts_proto_opt=nestJs=true --ts_proto_out=./src/generated -I ./src/protocols ./src/protocols/*.proto"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "copyfiles": "^2.4.1",
+    "rimraf": "^5.0.0",
+    "ts-proto": "^1.147.3"
+  }
+}
