@@ -3,26 +3,31 @@ syntax = "proto3";
 package auth;
 
 service AuthService {
-    rpc Auth(AuthRequest) returns (AuthResponse);
-    rpc Login(LoginRequest) returns (TokenResponse);
-    rpc Register(RegisterRequest) returns (TokenResponse);
+    rpc getAccessTokenIsValid(IToken) returns (User);
+    rpc createAccessTokenByUUID(IUUID) returns (ICreateAccessTokenByUUIDResponse);
+    rpc getUserByUUID(IUUID) returns (User);
+    rpc createUser(ICreateUser) returns (User);
 }
 
-message AuthRequest {}
-
-message AuthResponse {
-    string name = 1;
-}
-
-message TokenResponse {
+message IToken {
     string token = 1;
 }
 
-message LoginRequest {
-    string email = 1;
+message IUUID {
+    string uuid = 1;
 }
 
-message RegisterRequest {
+message User {
+    string uuid = 1;
+    string email = 2;
+    string name = 3;
+}
+
+message ICreateAccessTokenByUUIDResponse {
+    string token = 1;
+}
+
+message ICreateUser {
     string email = 1;
     string name = 2;
 }

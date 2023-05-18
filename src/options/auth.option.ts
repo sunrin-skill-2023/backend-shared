@@ -9,6 +9,6 @@ export const grpcClientOptions: GrpcOptions = addReflectionToGrpcConfig({
   options: {
     url: `${serviceHost}:${servicePort}`,
     package: 'auth',
-    protoPath: 'shared/lib/protocols/auth.proto',
+    protoPath: 'shared/src/protocols/auth.proto',
   },
 });
