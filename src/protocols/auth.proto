@@ -18,7 +18,7 @@ message IUUID {
 }
 
 message User {
-    string uuid = 1;
+    optional string uuid = 1;
     string email = 2;
     string name = 3;
 }
