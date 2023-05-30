@@ -13,7 +13,7 @@ export interface IUUID {
 }
 
 export interface User {
-  uuid?: string | undefined;
+  uuid: string;
   email: string;
   name: string;
 }
