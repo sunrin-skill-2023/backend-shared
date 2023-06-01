@@ -6,6 +6,7 @@ service AuthService {
     rpc getAccessTokenIsValid(IToken) returns (User);
     rpc createAccessTokenByUUID(IUUID) returns (ICreateAccessTokenByUUIDResponse);
     rpc getUserByUUID(IUUID) returns (User);
+    rpc getUserByPartialData(PartialUser) returns (User);
     rpc createUser(ICreateUser) returns (User);
 }
 
@@ -15,6 +16,14 @@ message IToken {
 
 message IUUID {
     string uuid = 1;
+}
+
+message PartialUser {
+    oneof data {
+        string uuid = 1;
+        string email = 2;
+        string name = 3;
+    }
 }
 
 message User {

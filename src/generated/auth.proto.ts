@@ -12,6 +12,12 @@ export interface IUUID {
   uuid: string;
 }
 
+export interface PartialUser {
+  uuid?: string | undefined;
+  email?: string | undefined;
+  name?: string | undefined;
+}
+
 export interface User {
   uuid: string;
   email: string;
@@ -36,6 +42,8 @@ export interface AuthServiceClient {
 
   getUserByUuid(request: IUUID): Observable<User>;
 
+  getUserByPartialData(request: PartialUser): Observable<User>;
+
   createUser(request: ICreateUser): Observable<User>;
 }
 
@@ -51,12 +59,20 @@ export interface AuthServiceController {
 
   getUserByUuid(request: IUUID): Promise<User> | Observable<User> | User;
 
+  getUserByPartialData(request: PartialUser): Promise<User> | Observable<User> | User;
+
   createUser(request: ICreateUser): Promise<User> | Observable<User> | User;
 }
 
 export function AuthServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ["getAccessTokenIsValid", "createAccessTokenByUuid", "getUserByUuid", "createUser"];
+    const grpcMethods: string[] = [
+      "getAccessTokenIsValid",
+      "createAccessTokenByUuid",
+      "getUserByUuid",
+      "getUserByPartialData",
+      "createUser",
+    ];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcMethod("AuthService", method)(constructor.prototype[method], method, descriptor);
