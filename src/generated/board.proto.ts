@@ -9,7 +9,7 @@ export interface IBoard {
   id: string;
   title?: string | undefined;
   content?: string | undefined;
-  writer: string;
+  user: string;
 }
 
 export interface BoardList {
@@ -19,7 +19,7 @@ export interface BoardList {
 export interface ICreateBoard {
   title: string;
   content: string;
-  writer: string;
+  user: string;
 }
 
 export interface IDeleteBorad {

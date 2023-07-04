@@ -15,7 +15,7 @@ message IBoard {
     string id = 1;
     optional string title = 2;
     optional string content = 3;
-    string writer = 4;
+    string user = 4;
 }
 
 message BoardList {
@@ -25,7 +25,7 @@ message BoardList {
 message ICreateBoard {
     string title = 1;
     string content = 2;
-    string writer = 3;
+    string user = 3;
 }
 
 message IDeleteBorad {
