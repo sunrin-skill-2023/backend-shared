@@ -5,7 +5,7 @@ import "google/protobuf/empty.proto";
 package board;
 
 service BoardService {
-    rpc getBoradList(google.protobuf.Empty) returns (BoradList) {}
+    rpc getBoardList(google.protobuf.Empty) returns (BoardList) {}
     rpc createBorad(ICreateBoard) returns (IBoard) {}
     rpc deleteBorad(IBoard) returns (google.protobuf.Empty) {}
     rpc updateBorad(IBoard) returns (IBoard) {}
@@ -18,7 +18,7 @@ message IBoard {
     string writer = 4;
 }
 
-message BoradList {
+message BoardList {
     repeated IBoard boards = 1;
 }
 

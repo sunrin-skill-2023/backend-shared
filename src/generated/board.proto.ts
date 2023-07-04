@@ -12,7 +12,7 @@ export interface IBoard {
   writer: string;
 }
 
-export interface BoradList {
+export interface BoardList {
   boards: IBoard[];
 }
 
@@ -29,7 +29,7 @@ export interface IDeleteBorad {
 export const BOARD_PACKAGE_NAME = "board";
 
 export interface BoardServiceClient {
-  getBoradList(request: Empty): Observable<BoradList>;
+  getBoardList(request: Empty): Observable<BoardList>;
 
   createBorad(request: ICreateBoard): Observable<IBoard>;
 
@@ -39,7 +39,7 @@ export interface BoardServiceClient {
 }
 
 export interface BoardServiceController {
-  getBoradList(request: Empty): Promise<BoradList> | Observable<BoradList> | BoradList;
+  getBoardList(request: Empty): Promise<BoardList> | Observable<BoardList> | BoardList;
 
   createBorad(request: ICreateBoard): Promise<IBoard> | Observable<IBoard> | IBoard;
 
@@ -50,7 +50,7 @@ export interface BoardServiceController {
 
 export function BoardServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ["getBoradList", "createBorad", "deleteBorad", "updateBorad"];
+    const grpcMethods: string[] = ["getBoardList", "createBorad", "deleteBorad", "updateBorad"];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcMethod("BoardService", method)(constructor.prototype[method], method, descriptor);
