@@ -4,23 +4,23 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-  OneToMany,
+  ManyToOne,
 } from 'typeorm';
-import { BoardEntity } from './board.entity';
+import { UserEntity } from './user.entity';
 
 @Entity()
-export class UserEntity {
+export class BoardEntity {
   @PrimaryGeneratedColumn('uuid')
-  uuid: string;
-
-  @Column({ unique: true })
-  email: string;
+  id: string;
 
   @Column()
-  name: string;
+  title: string;
 
-  @OneToMany(() => BoardEntity, (board) => board.user)
-  boards: BoardEntity[];
+  @Column()
+  content: string;
+
+  @ManyToOne(() => UserEntity, (user) => user.boards)
+  user: UserEntity;
 
   @CreateDateColumn()
   createdAt: Date;
