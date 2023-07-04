@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+package board;
+
+service BoardService {
+    rpc getBoradList(google.protobuf.Empty) returns (BoradList) {}
+    rpc createBorad(ICreateBoard) returns (IBoard) {}
+    rpc deleteBorad(IBoard) returns (google.protobuf.Empty) {}
+    rpc updateBorad(IBoard) returns (IBoard) {}
+}
+
+message IBoard {
+    string id = 1;
+    optional string title = 2;
+    optional string content = 3;
+    string writer = 4;
+}
+
+message BoradList {
+    repeated IBoard boards = 1;
+}
+
+message ICreateBoard {
+    string title = 1;
+    string content = 2;
+    string writer = 3;
+}
+
+message IDeleteBorad {
+    string id = 1;
+}
