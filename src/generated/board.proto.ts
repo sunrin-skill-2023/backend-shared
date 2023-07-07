@@ -37,7 +37,7 @@ export interface ICreateBoard {
   userId: string;
 }
 
-export interface IDeleteBorad {
+export interface IDeleteBoard {
   id: string;
 }
 
@@ -55,26 +55,26 @@ wrappers[".google.protobuf.Timestamp"] = {
 export interface BoardServiceClient {
   getBoardList(request: Empty): Observable<BoardList>;
 
-  createBorad(request: ICreateBoard): Observable<IBoard>;
+  createBoard(request: ICreateBoard): Observable<IBoard>;
 
-  deleteBorad(request: IDeleteBorad): Observable<Empty>;
+  deleteBoard(request: IDeleteBoard): Observable<Empty>;
 
-  updateBorad(request: IUpdateBoard): Observable<IBoard>;
+  updateBoard(request: IUpdateBoard): Observable<IBoard>;
 }
 
 export interface BoardServiceController {
   getBoardList(request: Empty): Promise<BoardList> | Observable<BoardList> | BoardList;
 
-  createBorad(request: ICreateBoard): Promise<IBoard> | Observable<IBoard> | IBoard;
+  createBoard(request: ICreateBoard): Promise<IBoard> | Observable<IBoard> | IBoard;
 
-  deleteBorad(request: IDeleteBorad): void;
+  deleteBoard(request: IDeleteBoard): void;
 
-  updateBorad(request: IUpdateBoard): Promise<IBoard> | Observable<IBoard> | IBoard;
+  updateBoard(request: IUpdateBoard): Promise<IBoard> | Observable<IBoard> | IBoard;
 }
 
 export function BoardServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ["getBoardList", "createBorad", "deleteBorad", "updateBorad"];
+    const grpcMethods: string[] = ["getBoardList", "createBoard", "deleteBoard", "updateBoard"];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcMethod("BoardService", method)(constructor.prototype[method], method, descriptor);

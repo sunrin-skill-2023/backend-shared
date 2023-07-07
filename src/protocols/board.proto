@@ -7,9 +7,9 @@ package board;
 
 service BoardService {
     rpc getBoardList(google.protobuf.Empty) returns (BoardList) {}
-    rpc createBorad(ICreateBoard) returns (IBoard) {}
-    rpc deleteBorad(IDeleteBorad) returns (google.protobuf.Empty) {}
-    rpc updateBorad(IUpdateBoard) returns (IBoard) {}
+    rpc createBoard(ICreateBoard) returns (IBoard) {}
+    rpc deleteBoard(IDeleteBoard) returns (google.protobuf.Empty) {}
+    rpc updateBoard(IUpdateBoard) returns (IBoard) {}
 }
 
 message IBoard {
@@ -43,6 +43,6 @@ message ICreateBoard {
     string userId = 3;
 }
 
-message IDeleteBorad {
+message IDeleteBoard {
     string id = 1;
 }
