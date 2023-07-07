@@ -5,6 +5,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   OneToMany,
+  JoinColumn,
 } from 'typeorm';
 import { BoardEntity } from './board.entity';
 
@@ -20,11 +21,9 @@ export class UserEntity {
   name: string;
 
   @OneToMany(() => BoardEntity, (board) => board.user)
+  @JoinColumn()
   boards: BoardEntity[];
 
   @CreateDateColumn()
   createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
 }

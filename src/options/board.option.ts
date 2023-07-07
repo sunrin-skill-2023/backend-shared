@@ -9,6 +9,6 @@ export const grpcClientOptions: GrpcOptions = addReflectionToGrpcConfig({
   options: {
     url: `${serviceHost}:${servicePort}`,
     package: 'board',
-    protoPath: 'src/board.proto',
+    protoPath: 'shared/src/protocols/board.proto',
   },
 });

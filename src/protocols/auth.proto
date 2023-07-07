@@ -1,13 +1,15 @@
 syntax = "proto3";
 
+import "google/protobuf/timestamp.proto";
+
 package auth;
 
 service AuthService {
-    rpc getAccessTokenIsValid(IToken) returns (User);
+    rpc getAccessTokenIsValid(IToken) returns (IUser);
     rpc createAccessTokenByUUID(IUUID) returns (ICreateAccessTokenByUUIDResponse);
-    rpc getUserByUUID(IUUID) returns (User);
-    rpc getUserByPartialData(PartialUser) returns (User);
-    rpc createUser(ICreateUser) returns (User);
+    rpc getUserByUUID(IUUID) returns (IUser);
+    rpc getUserByPartialData(PartialUser) returns (IUser);
+    rpc createUser(ICreateUser) returns (IUser);
 }
 
 message IToken {
@@ -26,10 +28,11 @@ message PartialUser {
     }
 }
 
-message User {
+message IUser {
     string uuid = 1;
     string email = 2;
     string name = 3;
+    google.protobuf.Timestamp createdAt = 5;
 }
 
 message ICreateAccessTokenByUUIDResponse {

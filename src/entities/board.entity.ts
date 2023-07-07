@@ -5,6 +5,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 import { UserEntity } from './user.entity';
 
@@ -19,12 +20,12 @@ export class BoardEntity {
   @Column()
   content: string;
 
-  @ManyToOne(() => UserEntity, (user) => user.boards)
+  @JoinColumn()
+  @ManyToOne(() => UserEntity, (user) => user.boards, {
+    eager: true,
+  })
   user: UserEntity;
 
   @CreateDateColumn()
   createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
 }

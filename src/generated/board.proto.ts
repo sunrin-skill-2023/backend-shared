@@ -1,5 +1,6 @@
 /* eslint-disable */
 import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
+import { wrappers } from "protobufjs";
 import { Observable } from "rxjs";
 import { Empty } from "./google/protobuf/empty.proto";
 
@@ -7,19 +8,33 @@ export const protobufPackage = "board";
 
 export interface IBoard {
   id: string;
-  title?: string | undefined;
-  content?: string | undefined;
-  user: string;
+  title: string;
+  content: string;
+  user: IUser | undefined;
+  createdAt: Date | undefined;
+}
+
+export interface IUser {
+  uuid: string;
+  email: string;
+  name: string;
+  createdAt: Date | undefined;
 }
 
 export interface BoardList {
   boards: IBoard[];
 }
 
+export interface IUpdateBoard {
+  id: string;
+  title?: string | undefined;
+  content?: string | undefined;
+}
+
 export interface ICreateBoard {
   title: string;
   content: string;
-  user: string;
+  userId: string;
 }
 
 export interface IDeleteBorad {
@@ -28,14 +43,23 @@ export interface IDeleteBorad {
 
 export const BOARD_PACKAGE_NAME = "board";
 
+wrappers[".google.protobuf.Timestamp"] = {
+  fromObject(value: Date) {
+    return { seconds: value.getTime() / 1000, nanos: (value.getTime() % 1000) * 1e6 };
+  },
+  toObject(message: { seconds: number; nanos: number }) {
+    return new Date(message.seconds * 1000 + message.nanos / 1e6);
+  },
+} as any;
+
 export interface BoardServiceClient {
   getBoardList(request: Empty): Observable<BoardList>;
 
   createBorad(request: ICreateBoard): Observable<IBoard>;
 
-  deleteBorad(request: IBoard): Observable<Empty>;
+  deleteBorad(request: IDeleteBorad): Observable<Empty>;
 
-  updateBorad(request: IBoard): Observable<IBoard>;
+  updateBorad(request: IUpdateBoard): Observable<IBoard>;
 }
 
 export interface BoardServiceController {
@@ -43,9 +67,9 @@ export interface BoardServiceController {
 
   createBorad(request: ICreateBoard): Promise<IBoard> | Observable<IBoard> | IBoard;
 
-  deleteBorad(request: IBoard): void;
+  deleteBorad(request: IDeleteBorad): void;
 
-  updateBorad(request: IBoard): Promise<IBoard> | Observable<IBoard> | IBoard;
+  updateBorad(request: IUpdateBoard): Promise<IBoard> | Observable<IBoard> | IBoard;
 }
 
 export function BoardServiceControllerMethods() {
