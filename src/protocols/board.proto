@@ -7,10 +7,15 @@ package board;
 
 service BoardService {
     rpc getBoardList(google.protobuf.Empty) returns (BoardList) {}
+    rpc getBoardById(IGetBoardById) returns (IBoard) {}
     rpc createBoard(ICreateBoard) returns (IBoard) {}
     rpc deleteBoard(IDeleteBoard) returns (google.protobuf.Empty) {}
     rpc updateBoard(IUpdateBoard) returns (IBoard) {}
     rpc isBoardOwner(IIsBoardOwner) returns (IIsBoardOwnerResponse) {}
+}
+
+message IGetBoardById {
+    string id = 1;
 }
 
 message IIsBoardOwner {

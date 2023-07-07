@@ -6,6 +6,10 @@ import { Empty } from "./google/protobuf/empty.proto";
 
 export const protobufPackage = "board";
 
+export interface IGetBoardById {
+  id: string;
+}
+
 export interface IIsBoardOwner {
   boardId: string;
   userId: string;
@@ -64,6 +68,8 @@ wrappers[".google.protobuf.Timestamp"] = {
 export interface BoardServiceClient {
   getBoardList(request: Empty): Observable<BoardList>;
 
+  getBoardById(request: IGetBoardById): Observable<IBoard>;
+
   createBoard(request: ICreateBoard): Observable<IBoard>;
 
   deleteBoard(request: IDeleteBoard): Observable<Empty>;
@@ -75,6 +81,8 @@ export interface BoardServiceClient {
 
 export interface BoardServiceController {
   getBoardList(request: Empty): Promise<BoardList> | Observable<BoardList> | BoardList;
+
+  getBoardById(request: IGetBoardById): Promise<IBoard> | Observable<IBoard> | IBoard;
 
   createBoard(request: ICreateBoard): Promise<IBoard> | Observable<IBoard> | IBoard;
 
@@ -89,7 +97,14 @@ export interface BoardServiceController {
 
 export function BoardServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ["getBoardList", "createBoard", "deleteBoard", "updateBoard", "isBoardOwner"];
+    const grpcMethods: string[] = [
+      "getBoardList",
+      "getBoardById",
+      "createBoard",
+      "deleteBoard",
+      "updateBoard",
+      "isBoardOwner",
+    ];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcMethod("BoardService", method)(constructor.prototype[method], method, descriptor);
