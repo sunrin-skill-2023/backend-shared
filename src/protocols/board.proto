@@ -10,6 +10,16 @@ service BoardService {
     rpc createBoard(ICreateBoard) returns (IBoard) {}
     rpc deleteBoard(IDeleteBoard) returns (google.protobuf.Empty) {}
     rpc updateBoard(IUpdateBoard) returns (IBoard) {}
+    rpc isBoardOwner(IIsBoardOwner) returns (IIsBoardOwnerResponse) {}
+}
+
+message IIsBoardOwner {
+    string boardId = 1;
+    string userId = 2;
+}
+
+message IIsBoardOwnerResponse {
+    bool isOwner = 1;
 }
 
 message IBoard {
