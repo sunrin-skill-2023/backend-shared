@@ -1,7 +1,7 @@
 import { GrpcOptions, Transport } from '@nestjs/microservices';
 import { addReflectionToGrpcConfig } from 'nestjs-grpc-reflection';
 
-export const serviceHost = '0.0.0.0';
+export const serviceHost = '211.11.0.101';
 export const servicePort = 10002;
 
 export const grpcClientOptions: GrpcOptions = addReflectionToGrpcConfig({
